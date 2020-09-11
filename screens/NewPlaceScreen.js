@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, TextInput, StyleSheet, Button, ScrollView, Text } from 'react-native'
-import Colors from '../constants/colors'
+import Colors from '../constants/Colors'
 import { useDispatch } from 'react-redux'
 import { addPlace } from '../store/places-actions'
 import ImagePicker from '../components/ImagePicker'
@@ -8,6 +8,7 @@ import ImagePicker from '../components/ImagePicker'
 const NewPlaceScreen = props => {
 
     const [ title, setTitle ] = useState('')
+    const [ image, setImage ] = useState(null)
 
     const dispatch = useDispatch()
 
@@ -15,8 +16,12 @@ const NewPlaceScreen = props => {
         setTitle(text)
     }
 
+    const imageTakenHandler = imagePath => {
+      setImage(imagePath)
+    }
+
     const savePlaceHandler = () => {
-        dispatch(addPlace(title))
+        dispatch(addPlace(title, image))
         props.navigation.goBack()
     }
 
@@ -29,19 +34,22 @@ const NewPlaceScreen = props => {
                 onChangeText={titleChangeHandler}
                 value={title}
                 />
-                <ImagePicker />
+                <ImagePicker onImageTaken={imageTakenHandler}/>
                 <Button 
                 title='Save Place' 
                 color={Colors.primary}
                 onPress={savePlaceHandler}
                 />
             </View>
-        </ScrollView>
-        
+        </ScrollView>   
     )
 }
 
-export default NewPlaceScreen
+NewPlaceScreen.navigationOptions = navData => {
+    return {
+        headerTitle: 'Add a New Place'
+    }
+}
 
 const styles = StyleSheet.create({
     form: {
@@ -57,12 +65,8 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         paddingHorizontal: 2,
         paddingVertical: 4
-
     }
 })
 
-NewPlaceScreen.navigationOptions = navData => {
-    return {
-        headerTitle: 'Add a New Place'
-    }
-}
+export default NewPlaceScreen
+

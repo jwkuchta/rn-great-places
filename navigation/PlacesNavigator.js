@@ -6,7 +6,7 @@ import PlacesListScreen from '../screens/PlacesListScreen'
 import PlaceDetailScreen from '../screens/PlaceDetailScreen'
 import { createAppContainer } from 'react-navigation'
 import MapScreen from '../screens/MapScreen'
-import Colors from '../constants/colors'
+import Colors from '../constants/Colors'
 import { Platform } from 'react-native'
 
 const PlacesNavigator = createStackNavigator({

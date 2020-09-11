@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { StyleSheet, FlatList } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useSelector } from 'react-redux'
 import PlaceItem from '../components/PlaceItem'
-import Colors from '../constants/colors'
+import Colors from '../constants/Colors'
 
 const PlacesListScreen = props => {
 
@@ -11,9 +11,8 @@ const PlacesListScreen = props => {
 
     return (
         <FlatList
-        renderItem={itemData => {
-            return (
-                <PlaceItem
+        renderItem={itemData => (
+          <PlaceItem
                 onSelect={() => props.navigation.navigate(
                     'PlaceDetail', 
                     {
@@ -22,13 +21,13 @@ const PlacesListScreen = props => {
                     }
                 )} 
                 // image={itemData.item.image}
-                image={null}
+                image={itemData.item.imageUri}
                 title={itemData.item.title}
                 // address={itemData.item.address}
                 address={null}
                 />
-            )
-        }}
+        )
+        }
         keyExtractor={item => item.id}
         data={places} 
         />
@@ -60,3 +59,4 @@ PlacesListScreen.navigationOptions = (navData) => {
 }
 
 export default PlacesListScreen
+

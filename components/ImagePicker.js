@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, Button, StyleSheet, Image, Alert } from 'react-native'
-import Colors from '../constants/colors'
+import Colors from '../constants/Colors'
 import * as ImgPicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
 
@@ -32,13 +32,15 @@ const ImagePicker = props => {
             quality: 0.5
         }) // opens up the device camera
         setPickedImage(image.uri) // this is temporary phone storage that is cleaned up automatically
+        // props.onImageTaken(image.uri) // forward it back to the parent component
+        props.onImageTaken(image.uri)
     }
 
     return (
         <View style={styles.imagePicker}>
             <View style={styles.imagePreview}>
-                {!pickedImage && <Text>No image picked yet</Text>}
-                {pickedImage && <Image style={styles.image} source={{ uri: pickedImage }} />}
+                {!pickedImage ? <Text>No image picked yet</Text> :
+                <Image style={styles.image} source={{ uri: pickedImage }} />}
             </View>
             <Button 
             title="Take Image" 
@@ -51,7 +53,8 @@ const ImagePicker = props => {
 
 const styles = StyleSheet.create({
     imagePicker: {
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 15
     },
     imagePreview: {
         width: '100%',
