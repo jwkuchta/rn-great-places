@@ -1,17 +1,38 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
+import { useSelector } from 'react-redux'
+import PlaceItem from '../components/PlaceItem'
 
 const PlacesListScreen = props => {
 
+    const places = useSelector(state => state.places.places)
+
     return (
-        <View style={styles.container}>
-            <Text>This is the places list screen</Text>
-        </View>
+        <FlatList
+        renderItem={itemData => {
+            return (
+                <PlaceItem
+                onSelect={() => props.navigation.navigate(
+                    'PlaceDetail', 
+                    {
+                        placeTitle: itemData.item.title, 
+                        placeId: itemData.item.id
+                    }
+                )} 
+                // image={itemData.item.image}
+                image={null}
+                title={itemData.item.title}
+                // address={itemData.item.address}
+                address={null}
+                />
+            )
+        }}
+        keyExtractor={item => item.id}
+        data={places} 
+        />
     )
 }
-
-export default PlacesListScreen
 
 const styles = StyleSheet.create({
     container: {
@@ -36,3 +57,5 @@ PlacesListScreen.navigationOptions = (navData) => {
         )
     } 
 }
+
+export default PlacesListScreen

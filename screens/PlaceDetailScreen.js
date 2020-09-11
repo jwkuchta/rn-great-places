@@ -10,7 +10,14 @@ const PlaceDetailScreen = props => {
     )
 }
 
-export default PlaceDetailScreen
+PlaceDetailScreen.navigationOptions = navData => {
+    const title = navData.navigation.getParam('placeTitle')
+    const id = navData.navigation.getParam('placeId')
+
+    return {
+        headerTitle: title
+    }
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -19,3 +26,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     }
 })
+
+export default PlaceDetailScreen
+
+
