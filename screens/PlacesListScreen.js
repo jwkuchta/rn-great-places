@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { useSelector } from 'react-redux'
 import PlaceItem from '../components/PlaceItem'
+import Colors from '../constants/colors'
 
 const PlacesListScreen = props => {
 
