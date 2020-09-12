@@ -1,7 +1,8 @@
-import { SQLite } from 'expo-sqlite'
+import * as SQLite from 'expo-sqlite'
 
 const db = SQLite.openDatabase('places.db')
 
+// this sets up the database but we have to call it in App.js
 export const init = () => {
     const promise = new Promise((resolve, reject) => {
         db.transaction(tx => {
@@ -12,12 +13,12 @@ export const init = () => {
                     resolve()
                 },
                 (_, error) => {
-                    reject()
+                    reject(error)
                 }
             )
         })
     })
-    
+    return promise 
 }
 
 // expecuteSql takes 2 mandatory args - the query and the array of dynamic arguments you can inject into the query

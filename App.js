@@ -5,6 +5,11 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { AppLoading } from 'expo'
 import placesReducer from './store/places-reducer'
+import { init } from './helpers/db'
+
+init()
+.then(() => console.log('initialized database'))
+.catch(error => console.log('Something went wrong! ', error))
 
 const rootReducer = combineReducers({
   places: placesReducer
