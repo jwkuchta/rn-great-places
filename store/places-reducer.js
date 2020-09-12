@@ -1,13 +1,21 @@
-import { ADD_PLACE } from "./places-actions"
+import { ADD_PLACE, SET_PLACES } from "./places-actions"
 import Place from '../models/place'
 
 const initState = {
-    places: [],
-
+    places: []
 }
 
 export default (state = initState, action) => {
     switch (action.type) {
+        case SET_PLACES:
+            return {
+                places: action.payload.map(place => new Place(
+                        place.id.toString(),
+                        place.title,
+                        place.imageUri
+                    )
+                )
+            }
         case ADD_PLACE:
             const newPlace = new Place(
                 action.payload.id.toString(), 
@@ -21,6 +29,8 @@ export default (state = initState, action) => {
             return state
     }
 }
+
+
 
 
 

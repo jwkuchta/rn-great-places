@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, FlatList } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import PlaceItem from '../components/PlaceItem'
 import Colors from '../constants/Colors'
+import { loadPlaces } from '../store/places-actions'
 
 const PlacesListScreen = props => {
 
     const places = useSelector(state => state.places.places)
+    console.log(places)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(loadPlaces())
+    }, [dispatch])
 
     return (
         <FlatList
@@ -20,7 +27,7 @@ const PlacesListScreen = props => {
                         placeId: itemData.item.id
                     }
                 )} 
-                // image={itemData.item.image}
+                image={itemData.item.image}
                 image={itemData.item.imageUri}
                 title={itemData.item.title}
                 // address={itemData.item.address}
