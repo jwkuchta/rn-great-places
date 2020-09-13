@@ -14,8 +14,8 @@ export default (state = initState, action) => {
                         place.title,
                         place.imageUri,
                         place.address,
-                        place.latitude,
-                        place.longitude
+                        place.lat,
+                        place.long
                     )
                 )
             }

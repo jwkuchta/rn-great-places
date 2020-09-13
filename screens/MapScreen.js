@@ -5,17 +5,25 @@ import Colors from '../constants/Colors'
 
 const MapScreen = props => {
 
-    const [ selectedLocation, setSelectedLocation ] = useState()
+    const initialLocation = props.navigation.getParam('initialLocation')
+    const readonly = props.navigation.getParam('readonly')
+
+    // if data is passes on as readonly state will be initiated with it
+    const [ selectedLocation, setSelectedLocation ] = useState(initialLocation)
 
     // this region object requires the following args and they have to be names as seen below
     const mapRegion = {
-        latitude: 37.78,
-        longitude: -122.43,
+        latitude: initialLocation.lat || 37.78,
+        longitude: initialLocation.long || -122.43,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
     }
 
     const selectLocationHandler = (event) => {
+        // if data passed as readonly from the details screen, no option to set the marker
+        if (readonly) {
+            setSelectedLocation(initialLocation) 
+        }
         setSelectedLocation({
             lat: event.nativeEvent.coordinate.latitude,
             long: event.nativeEvent.coordinate.longitude
@@ -41,7 +49,7 @@ const MapScreen = props => {
     let markerCoordinates
 
     if (selectedLocation) {
-        console.log(selectedLocation)
+        console.log('selected location on map screen: ', selectedLocation)
         markerCoordinates = {
             latitude: selectedLocation.lat,
             longitude: selectedLocation.long
@@ -61,6 +69,7 @@ const MapScreen = props => {
 
 MapScreen.navigationOptions = navData => {
     const saveFn = navData.navigation.getParam('savePickedLocation')
+    const readonly = navData.navigation.getParam('readonly')
     return {
         headerRight: () => (
             <TouchableOpacity style={styles.headerButton} onPress={saveFn}>
