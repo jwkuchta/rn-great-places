@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, StyleSheet } from 'react-native'
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { GOOGLE_STATIC_API_KEY as apiKey }from '../constants/api_key'
 
 const MapPreview = props => {
@@ -7,11 +7,11 @@ const MapPreview = props => {
     let imagePreviewUrl
 
     if (props.location) {
-        imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${props.location.lat},${props.location.long}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:C%7C${props.location.lat},${props.location.long}&key=${apiKey}`
+        imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${props.location.lat},${props.location.long}&zoom=13&size=400x200&maptype=roadmap&markers=color:red%7Clabel:C%7C${props.location.lat},${props.location.long}&key=${apiKey}`
     }
 
     return (
-        <View style={{...styles.mapPreview, ...props.style}}>
+        <TouchableOpacity onPress={props.onPress} style={{...styles.mapPreview, ...props.style}}>
             {props.location 
             ? 
             <Image 
@@ -19,7 +19,7 @@ const MapPreview = props => {
             source={{ uri: imagePreviewUrl }}/> 
             : 
             props.children}
-        </View>
+        </TouchableOpacity>
     )
 }
 
