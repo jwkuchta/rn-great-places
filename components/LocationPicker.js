@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet, Image, Alert, ActivityIndicator } from 
 import Colors from '../constants/Colors'
 import * as Location from 'expo-location'
 import * as Permissions from 'expo-permissions'
+import MapPreview from './MapPreview'
 
 const LocationPicker = props => {
 
@@ -42,10 +43,14 @@ const LocationPicker = props => {
 
     return (
         <View style={styles.locPicker}>
-            <View style={styles.mapPreview}>
-                {fetching ? <ActivityIndicator size='large' color={Colors.primary}/> : <Text>No location chosen yet</Text>}
-            </View>
-            
+            <MapPreview style={styles.mapPreview} location={pickedLocation}>
+                {fetching 
+                ? 
+                <ActivityIndicator size='large' color={Colors.primary}/> 
+                : 
+                <Text>No location chosen yet</Text>
+                }
+            </MapPreview>
             <Button 
             title="Pick Location" 
             color={Colors.primary}
@@ -64,8 +69,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 200,
         marginBottom: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
         borderWidth: 1, 
         borderColor: '#ccc'
     },
