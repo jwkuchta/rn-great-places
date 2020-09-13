@@ -12,7 +12,10 @@ export default (state = initState, action) => {
                 places: action.payload.map(place => new Place(
                         place.id.toString(),
                         place.title,
-                        place.imageUri
+                        place.imageUri,
+                        place.address,
+                        place.latitude,
+                        place.longitude
                     )
                 )
             }
@@ -20,7 +23,10 @@ export default (state = initState, action) => {
             const newPlace = new Place(
                 action.payload.id.toString(), 
                 action.payload.title,
-                action.payload.image
+                action.payload.image,
+                action.payload.address,
+                action.payload.coords.lat,
+                action.payload.coords.long
             )
             return {
                 places: state.places.concat(newPlace)
