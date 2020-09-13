@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, Button, StyleSheet, Image, Alert, ActivityIndicator } from 'react-native'
 import Colors from '../constants/Colors'
 import * as Location from 'expo-location'
@@ -7,8 +7,19 @@ import MapPreview from './MapPreview'
 
 const LocationPicker = props => {
 
+    const mapPickedLocation = props.navigation.getParam('pickedLocation')
+
+    const { onLocationPicked } = props
+
     const [ pickedLocation, setPickedLocation ] = useState()
     const [ fetching, setFetching ] = useState()
+
+    useEffect(() => {
+        if(mapPickedLocation) {
+            setPickedLocation(mapPickedLocation)
+            onLocationPicked(mapPickedLocation)
+        }
+    },[mapPickedLocation, onLocationPicked])
 
     const verifyPermissions = async () => {
         const result = await Permissions.askAsync(Permissions.LOCATION)
@@ -31,10 +42,12 @@ const LocationPicker = props => {
         try {
             const location = await Location.getCurrentPositionAsync({ timeout: 5000 }) // will try for 5 seconds and then stop trying 
             console.log(location) // returns an object with coords
-            setPickedLocation({
+            const newLocation = {
                 lat: location.coords.latitude,
                 long: location.coords.longitude
-            })
+            }
+            setPickedLocation(newLocation)
+            onLocationPicked(newLocation)
         } catch (error) {
             Alert.alert('Something went wrong', error.message, [{ text: 'OK' }])
         }  
