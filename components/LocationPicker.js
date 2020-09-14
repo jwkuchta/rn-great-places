@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Button, StyleSheet, Image, Alert, ActivityIndicator } from 'react-native'
+import { View, Text, Button, StyleSheet, Alert, ActivityIndicator } from 'react-native'
 import Colors from '../constants/Colors'
 import * as Location from 'expo-location'
 import * as Permissions from 'expo-permissions'
@@ -8,7 +8,6 @@ import MapPreview from './MapPreview'
 const LocationPicker = props => {
 
     const mapPickedLocation = props.navigation.getParam('pickedLocation')
-
     const { onLocationPicked } = props
 
     const [ pickedLocation, setPickedLocation ] = useState()
@@ -19,7 +18,7 @@ const LocationPicker = props => {
             setPickedLocation(mapPickedLocation)
             onLocationPicked(mapPickedLocation)
         }
-    },[mapPickedLocation, onLocationPicked])
+    },[ mapPickedLocation, onLocationPicked ])
 
     const verifyPermissions = async () => {
         const result = await Permissions.askAsync(Permissions.LOCATION)
@@ -40,8 +39,8 @@ const LocationPicker = props => {
             return
         }
         try {
+            // returns an object with coords
             const location = await Location.getCurrentPositionAsync({ timeout: 5000 }) // will try for 5 seconds and then stop trying 
-            console.log(location) // returns an object with coords
             const newLocation = {
                 lat: location.coords.latitude,
                 long: location.coords.longitude

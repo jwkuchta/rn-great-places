@@ -24,7 +24,8 @@ const PlacesListScreen = props => {
                     'PlaceDetail', 
                     {
                         placeTitle: itemData.item.title, 
-                        placeId: itemData.item.id
+                        placeId: itemData.item.id,
+                        place: itemData.item
                     }
                 )} 
                 image={itemData.item.image}

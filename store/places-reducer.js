@@ -9,7 +9,8 @@ export default (state = initState, action) => {
     switch (action.type) {
         case SET_PLACES:
             return {
-                places: action.payload.map(place => new Place(
+                places: action.payload.map(place => new Place
+                    (
                         place.id.toString(),
                         place.title,
                         place.imageUri,

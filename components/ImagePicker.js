@@ -28,11 +28,10 @@ const ImagePicker = props => {
         const image = await ImgPicker.launchCameraAsync({
             allowsEditing: true,
             aspect: [16, 9],
-            // spect: [4, 5],
+            // aspect: [4, 5], // for portrait
             quality: 0.5
         }) // opens up the device camera
         setPickedImage(image.uri) // this is temporary phone storage that is cleaned up automatically
-        // props.onImageTaken(image.uri) // forward it back to the parent component
         props.onImageTaken(image.uri)
     }
 

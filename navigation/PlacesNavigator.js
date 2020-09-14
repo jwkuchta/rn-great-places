@@ -1,7 +1,6 @@
-import React from 'react'
 import { createStackNavigator } from 'react-navigation-stack'
 import NewPlaceScreen from '../screens/NewPlaceScreen'
-import { Ionicons } from '@expo/vector-icons'
+// import { Ionicons } from '@expo/vector-icons'
 import PlacesListScreen from '../screens/PlacesListScreen'
 import PlaceDetailScreen from '../screens/PlaceDetailScreen'
 import { createAppContainer } from 'react-navigation'

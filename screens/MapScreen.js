@@ -70,12 +70,18 @@ const MapScreen = props => {
 MapScreen.navigationOptions = navData => {
     const saveFn = navData.navigation.getParam('savePickedLocation')
     const readonly = navData.navigation.getParam('readonly')
+    const saveButton = (
+        <TouchableOpacity style={styles.headerButton} onPress={saveFn}>
+            <Text style={styles.headerButtonText}>Save</Text>
+        </TouchableOpacity>
+    )
     return {
-        headerRight: () => (
-            <TouchableOpacity style={styles.headerButton} onPress={saveFn}>
-                <Text style={styles.headerButtonText}>Save</Text>
-            </TouchableOpacity>
-        )
+        headerRight: () => {
+            if (!readonly) {
+                return saveButton
+            }
+            return null
+        }
     }
 }
 

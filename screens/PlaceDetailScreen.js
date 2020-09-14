@@ -7,13 +7,15 @@ import Colors from '../constants/Colors'
 const PlaceDetailScreen = props => {
 
     const placeId = props.navigation.getParam('placeId')
+    const title = props.navigation.getParam('placeTitle')
+    const place = props.navigation.getParam('place')
+    console.log('title: ', title, 'placeId: ', placeId, 'place: ', place)
     const places = useSelector(state => state.places.places)
     const selectedPlace = places.find(p => p.id === placeId)
     const selectedLocation = { 
         lat: selectedPlace.lat, 
         long: selectedPlace.long 
     }
-    // props.navigation.setParams({ title: selectedPlace.title })
 
     const showMapHandler = () => {
         props.navigation.navigate('Map', {
@@ -39,11 +41,11 @@ const PlaceDetailScreen = props => {
 }
 
 PlaceDetailScreen.navigationOptions = navData => {
-    const title = navData.navigation.getParam('title')
-    const id = navData.navigation.getParam('placeId')
+    const title = navData.navigation.getParam('placeTitle')
+    console.log('title in the place detaial screen nav options', title)
 
     return {
-        headerTitle: title
+        headerTitle: `${title}`
     }
 }
 
